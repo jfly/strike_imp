@@ -3,6 +3,15 @@ e-imp based strike plate controller
 
 Squirrel code by Kasia Hayden for using an electric imp to conrol an electric strike plate.
 
+## What is this flask directory?
+
+[Flask](http://flask.pocoo.org/) is a python microframework. It provides an API to run augustctl.
+Note: We're using Python2, not Python3!
+
+### Dependencies
+
+- [Flask](http://flask.pocoo.org/) - `sudo pip2 install flask`
+
 ## Getting the august secret from a rooted android phone
 
 We're using [sretlawd/augustctl](https://github.com/sretlawd/augustctl) to control the august lock.
