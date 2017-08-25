@@ -104,6 +104,11 @@ class DebugDevice extends React.Component {
           <AndroidButton keycode="KEYCODE_VOLUME_UP">+</AndroidButton>
           <AndroidButton keycode="KEYCODE_VOLUME_DOWN">-</AndroidButton>
 
+          <br />
+          <AsyncTaskButton invokeTask={() => {
+            return api.swipe(serial, 600, 1500, 600, 500, 50).catch(err => console.error(err)); //<<< TODO compute for any device, this is just for nexus 5 >>>
+          }}>Swipe ↑</AsyncTaskButton>
+
           {deviceInfo.screenshot && (
             <div>
               <div>

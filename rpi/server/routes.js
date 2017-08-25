@@ -101,6 +101,21 @@ module.exports = function(server) {
     });
   });
 
+  addDeviceAction("swipe", "POST", function(request, reply) {
+    let x1 = parseInt(request.query.x1);
+    let y1 = parseInt(request.query.y1);
+    let x2 = parseInt(request.query.x2);
+    let y2 = parseInt(request.query.y2);
+    let durationMs = parseInt(request.query.durationMs);
+    adb.swipe(request.params.serial, x1, y1, x2, y2, durationMs, function(err) {
+      if(err) {
+        return reply(Boom.boomify(err, { statusCode: 503 }));
+      }
+
+      reply({ status: "ok" });
+    });
+  });
+
   addDeviceAction("unlock", "POST", function(request, reply) {
     // TODO <<< adb shell input keyevent KEYCODE_POWER && adb shell input touchscreen swipe 350 1000 350 400 50 && adb shell input text 8137 && adb shell input keyevent KEYCODE_ENTER && adb shell input keyevent KEYCODE_HOME >>>
     // TODO <<< can check if phone is already locked via: adb shell dumpsys power | grep mHolding

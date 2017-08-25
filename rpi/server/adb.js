@@ -15,6 +15,12 @@ function throwIfInvalidSerial(serial) {
   }
 }
 
+function throwIfNotANumber(n) {
+  if(typeof(n) !== "number") {
+    throw new Error(`${n} is not a number`);
+  }
+}
+
 module.exports = {
   getDevices(callback) {
     adb('devices -l', function(err, stdout) {
@@ -73,14 +79,26 @@ module.exports = {
 
   tap(serial, x, y, callback) {
     throwIfInvalidSerial(serial);
-    if(typeof(x) !== "number") {
-      throw new Error(`x (${x}) is not a number`);
-    }
-    if(typeof(y) !== "number") {
-      throw new Error(`y (${y}) is not a number`);
-    }
+    throwIfNotANumber(x);
+    throwIfNotANumber(y);
 
     adb(`-s ${serial} shell input tap ${x} ${y}`, function(err, stdout) {
+      if(err) {
+        return callback(err);
+      }
+      callback(null);
+    });
+  },
+
+  swipe(serial, x1, y1, x2, y2, durationMs, callback) {
+    throwIfInvalidSerial(serial);
+    throwIfNotANumber(x1);
+    throwIfNotANumber(y1);
+    throwIfNotANumber(x2);
+    throwIfNotANumber(y2);
+    throwIfNotANumber(durationMs);
+
+    adb(`-s ${serial} shell input touchscreen swipe ${x1} ${y1} ${x2} ${y2} ${durationMs}`, function(err, stdout) {
       if(err) {
         return callback(err);
       }

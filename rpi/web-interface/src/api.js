@@ -25,3 +25,9 @@ export function tap(serial, x, y) {
     method: "POST",
   }).then(response => response.json());
 }
+
+export function swipe(serial, x1, y1, x2, y2, durationMs) {
+  return fetch(`${API_BASE_URL}/devices/${serial}/swipe?x1=${x1}&y1=${y1}&x2=${x2}&y2=${y2}&durationMs=${durationMs}`, {
+    method: "POST",
+  }).then(response => response.json());
+}
