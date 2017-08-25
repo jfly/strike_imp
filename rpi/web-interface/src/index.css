@@ -1,0 +1,63 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+// Modified from http://bootsnipp.com/snippets/featured/loading-button-effect-no-js
+@keyframes ld {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+@-webkit-keyframes ld {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+@-moz-keyframes ld {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+@-o-keyframes ld {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+button.working {
+  position: relative;
+  opacity: 0.8;
+}
+
+button.working:hover,
+button.working:active,
+button.working:focus {
+  cursor: default;
+  box-shadow: none;
+}
+
+button.working::before {
+  content: '';
+
+  display: inline-block;
+
+  position: absolute;
+  background: transparent;
+  border: 1px solid currentColor;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+
+  box-sizing: border-box;
+
+  top: 50%;
+  left: 50%;
+  margin-top: -12px;
+  margin-left: -12px;
+
+  width: 24px;
+  height: 24px;
+
+  animation: ld 1s ease-in-out infinite;
+}
