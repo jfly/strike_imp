@@ -68,7 +68,9 @@ module.exports = function(server) {
 
   function urlifyScreenshot(screenshot, request) {
     let pathToScreenshot = path.relative('./public', screenshot.path);
-    let url = `${request.connection.info.protocol}://${request.info.host}/${pathToScreenshot}`;
+    //<<<let url = `${request.connection.info.protocol}://${request.info.host}/${pathToScreenshot}`;
+    // urg http vs https junk =(
+    let url = `/${pathToScreenshot}`;
     return {
       date: screenshot.date,
       url,
