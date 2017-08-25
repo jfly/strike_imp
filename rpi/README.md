@@ -20,7 +20,7 @@ might be a good candidate for this.
 
 ## Development
 
-- `cd server/ && node server.js` - Run api server, accessible at http://localhost:8000.
+- `cd server/ && npm start` - Run api server, accessible at http://localhost:8000.
 - `cd web-interface && npm start` - Run create-react-app server. TODO - you need to edit `API_BASE_URL` in `web-interface/src/api.js`.
 
 ## Deploying
