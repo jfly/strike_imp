@@ -18,4 +18,4 @@ function start_screen {
     done
 }
 
-start_screen rausch localtunnel "lt --port 8000 --subdomain jflytest" server "(cd /home/pi/strike_imp/rpi; (cd web-interface && npm install && npm run build); (cd server && npm install && npm start))"
+start_screen rausch localtunnel "lt --port 8000 --subdomain rausching" server "(cd /home/pi/strike_imp/rpi; (cd web-interface && npm install && npm run build); (cd server && npm install && npm start))"
