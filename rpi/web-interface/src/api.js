@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = ''; //<<< http://localhost:8000
 
 export function fetchDevices() {
   return fetch(`${API_BASE_URL}/devices`).then(response => response.json());

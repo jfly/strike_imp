@@ -6,7 +6,7 @@ const path = require('path');
 const mkdirp = require('mkdirp');
 const { exec } = require('child_process');
 
-const SCREENSHOTS_PATH = './public/screenshots';
+const SCREENSHOTS_PATH = './screenshots';
 let lastScreenshotBySerial = {};
 
 // fetch the last screenshots once on startup, afterwards, we just remember them =)

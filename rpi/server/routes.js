@@ -7,12 +7,32 @@ const path = require('path');
 const screenshot = require('./screenshot');
 
 module.exports = function(server) {
+  // TODO: urg, these static routes are messy because we cannot define multiple
+  //       routes for the same path and have them fallback.
   server.route({
     method: 'GET',
     path: '/{param*}',
     handler: {
+      file: 'public-built/index.html',
+    },
+  });
+
+  server.route({
+    method: 'GET',
+    path: '/static/{param*}',
+    handler: {
       directory: {
-        path: 'public',
+        path: 'public-built/static',
+      },
+    },
+  });
+
+  server.route({
+    method: 'GET',
+    path: '/screenshots/{param*}',
+    handler: {
+      directory: {
+        path: 'screenshots',
       },
     },
   });
