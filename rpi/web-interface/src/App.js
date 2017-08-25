@@ -112,16 +112,18 @@ class DebugDevice extends React.Component {
             return api.swipe(serial, midX, lowY, midX, highY, 50).catch(err => console.error(err));
           }}>Swipe ↑</AsyncTaskButton>
 
-          {deviceInfo.screenshot && (
+          <div>
             <div>
-              <div>
-                Screenshot taken {moment(deviceInfo.screenshot.date).fromNow()}
-                <AsyncTaskButton invokeTask={() => {
-                  return api.takeScreenshot(serial).then(screenshot => {
-                    this.setState({ deviceInfo: { ...deviceInfo, screenshot } });
-                  }).catch(err => console.error(err));
-                }}>Refresh</AsyncTaskButton>
-              </div>
+              {deviceInfo.screenshot && (
+                <span>Screenshot taken {moment(deviceInfo.screenshot.date).fromNow()}</span>
+              )}
+              <AsyncTaskButton invokeTask={() => {
+                return api.takeScreenshot(serial).then(screenshot => {
+                  this.setState({ deviceInfo: { ...deviceInfo, screenshot } });
+                }).catch(err => console.error(err));
+              }}>Refresh</AsyncTaskButton>
+            </div>
+            {deviceInfo.screenshot && (
               <img
                 src={deviceInfo.screenshot.url}
                 alt={`Screenshot taken at ${deviceInfo.screenshot.date}`}
@@ -136,8 +138,8 @@ class DebugDevice extends React.Component {
                   api.tap(serial, phoneX, phoneY).catch(err => console.error(err));
                 }}
               />
-            </div>
-          )}
+            )}
+          </div>
 
           <AndroidButton keycode="KEYCODE_BACK">Back</AndroidButton>
           <AndroidButton keycode="KEYCODE_HOME">Home</AndroidButton>
