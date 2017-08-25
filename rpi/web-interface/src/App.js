@@ -106,7 +106,10 @@ class DebugDevice extends React.Component {
 
           <br />
           <AsyncTaskButton invokeTask={() => {
-            return api.swipe(serial, 600, 1500, 600, 500, 50).catch(err => console.error(err)); //<<< TODO compute for any device, this is just for nexus 5 >>>
+            let midX = deviceInfo.resolution.width * 0.5;
+            let lowY = deviceInfo.resolution.height * 0.75;
+            let highY = deviceInfo.resolution.height * 0.25;
+            return api.swipe(serial, midX, lowY, midX, highY, 50).catch(err => console.error(err));
           }}>Swipe ↑</AsyncTaskButton>
 
           {deviceInfo.screenshot && (
