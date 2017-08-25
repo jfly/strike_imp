@@ -39,7 +39,7 @@ module.exports = {
       }
 
       let [ width, height ] = stdout.trim().split(": ")[1].split("x").map(s => parseInt(s));
-      callback(null, { resolution: { width, height } });
+      callback(null, { width, height });
     });
   }),
 
@@ -64,6 +64,23 @@ module.exports = {
     }
 
     adb(`-s ${serial} shell input keyevent ${keycode}`, function(err, stdout) {
+      if(err) {
+        return callback(err);
+      }
+      callback(null);
+    });
+  },
+
+  tap(serial, x, y, callback) {
+    throwIfInvalidSerial(serial);
+    if(typeof(x) !== "number") {
+      throw new Error(`x (${x}) is not a number`);
+    }
+    if(typeof(y) !== "number") {
+      throw new Error(`y (${y}) is not a number`);
+    }
+
+    adb(`-s ${serial} shell input tap ${x} ${y}`, function(err, stdout) {
       if(err) {
         return callback(err);
       }

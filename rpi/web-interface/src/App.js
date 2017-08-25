@@ -81,7 +81,7 @@ class DebugDevice extends React.Component {
     let { serial } = this.props.match.params;
     let { deviceInfo } = this.state;
 
-    const AndroidButton = ({keycode, children}) => {
+    const AndroidButton = ({ keycode, children }) => {
       return (
         <AsyncTaskButton invokeTask={() => {
           return api.keyevent(serial, keycode).catch(err => console.error(err));
@@ -100,23 +100,33 @@ class DebugDevice extends React.Component {
         <div>
           <h3>Connecting to {serial}... connected!</h3>
 
-          <AndroidButton keycode="KEYCODE_POWER">Power button</AndroidButton>
+          <AndroidButton keycode="KEYCODE_POWER">Power</AndroidButton>
           <AndroidButton keycode="KEYCODE_VOLUME_UP">+</AndroidButton>
           <AndroidButton keycode="KEYCODE_VOLUME_DOWN">-</AndroidButton>
 
-          <AsyncTaskButton invokeTask={() => {
-            return api.takeScreenshot(serial).then(screenshot => {
-              this.setState({ deviceInfo: { ...deviceInfo, screenshot } });
-            }).catch(err => console.error(err));
-          }}>Take screenshot!</AsyncTaskButton>
-
           {deviceInfo.screenshot && (
             <div>
-              <div>Screenshot taken {moment(deviceInfo.screenshot.date).fromNow()}</div>
+              <div>
+                Screenshot taken {moment(deviceInfo.screenshot.date).fromNow()}
+                <AsyncTaskButton invokeTask={() => {
+                  return api.takeScreenshot(serial).then(screenshot => {
+                    this.setState({ deviceInfo: { ...deviceInfo, screenshot } });
+                  }).catch(err => console.error(err));
+                }}>Refresh</AsyncTaskButton>
+              </div>
               <img
                 src={deviceInfo.screenshot.url}
                 alt={`Screenshot taken at ${deviceInfo.screenshot.date}`}
                 style={{maxHeight: '500px'}}
+                onClick={e => {
+                  let img = e.target;
+                  let x = e.pageX - img.offsetLeft;
+                  let y = e.pageY - img.offsetTop;
+
+                  let phoneX = (x/img.width) * deviceInfo.resolution.width;
+                  let phoneY = (y/img.height) * deviceInfo.resolution.height;
+                  api.tap(serial, phoneX, phoneY).catch(err => console.error(err));
+                }}
               />
             </div>
           )}

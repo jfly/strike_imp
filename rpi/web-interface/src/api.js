@@ -19,3 +19,9 @@ export function keyevent(serial, keycode) {
     method: "POST",
   }).then(response => response.json());
 }
+
+export function tap(serial, x, y) {
+  return fetch(`${API_BASE_URL}/devices/${serial}/tap?x=${x}&y=${y}`, {
+    method: "POST",
+  }).then(response => response.json());
+}
